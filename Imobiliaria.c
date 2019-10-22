@@ -7,7 +7,7 @@
 
 //tipos
 typedef struct casa{
-    char *titulo;
+    char titulo[100];
     int nmr_pavimentos;
     int nmr_quartos;
     int area_terreno;
@@ -15,8 +15,8 @@ typedef struct casa{
 }tCasa;
 
 typedef struct apartamento{
-    char *titulo;
-    char *posicao;
+    char titulo[100];
+    char posicao[100];
     int area;
     int nmr_quartos;
     int andar;
@@ -25,13 +25,16 @@ typedef struct apartamento{
 }tApartamento;
 
 typedef struct terreno{
-    char *titulo;
+    char titulo[100];
     int area_terreno;
 }tTerreno;
 
+//Controle
+int ncasas = 0, napes = 0, nterrenos = 0;
+
 //Funções
-void cadastra(){
-    char string[100], string2[100];
+void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
+    int tam = 100;
     int opcao;
 
     printf("Escolha o tipo de Imovel:\n"
@@ -46,7 +49,6 @@ void cadastra(){
     switch(opcao){
         case 1:
             fflush(stdin);
-            tCasa novaCasa;
 
             printf("> Titulo\n"
                    "> Numero de Pavimentos\n"
@@ -56,21 +58,23 @@ void cadastra(){
 
             printf("Insira as informacoes abaixo:\n\n");
 
-            scanf("%[^\n]s", &string);
-            novaCasa.titulo = string;
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[ncasas].titulo);
+            fflush(stdin);
 
-            scanf("%d %d %d %d", &novaCasa.nmr_pavimentos, &novaCasa.nmr_quartos,
-                  &novaCasa.area_terreno, &novaCasa.area_construida);
+            scanf("%d %d %d %d", &casas[ncasas].nmr_pavimentos, &casas[ncasas].nmr_quartos,
+                  &casas[ncasas].area_terreno, &casas[ncasas].area_construida);
 
-            printf("Dados Inseridos:\n\nTitulo: %s\nNumero de Pavimentos: %d\nNumero de Quartos: %d\n"
-                   "Area do Terreno: %d m\nArea Construida: %d m\n", novaCasa.titulo, novaCasa.nmr_pavimentos,
-                   novaCasa.nmr_quartos, novaCasa.area_terreno, novaCasa.area_construida);
+            printf("\nDados Inseridos:\n\nTitulo: %s\nNumero de Pavimentos: %d\nNumero de Quartos: %d\n"
+                   "Area do Terreno: %d m2\nArea Construida: %d m2\n\n", casas[ncasas].titulo, casas[ncasas].nmr_pavimentos,
+                   casas[ncasas].nmr_quartos, casas[ncasas].area_terreno, casas[ncasas].area_construida);
+
+            ncasas++;
 
             break;
 
         case 2:
             fflush(stdin);
-            tApartamento novoApartamento;
 
             printf("> Titulo\n"
                    "> Posicao\n"
@@ -82,43 +86,45 @@ void cadastra(){
 
             printf("Insira as informacoes abaixo:\n\n");
 
-            scanf("%[^\n]s", &string);
-            novoApartamento.titulo = string;
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[napes].titulo);
             fflush(stdin);
 
 
-            scanf("%[^\n]s", &string2);
-            novoApartamento.posicao = string2;
+            scanf("%[^\n]s", &apes[napes].posicao);
             fflush(stdin);
 
-            scanf("%d", &novoApartamento.area);
-            scanf("%d", &novoApartamento.nmr_quartos);
-            scanf("%d", &novoApartamento.andar);
-            scanf("%f", &novoApartamento.val_condominio);
-            scanf("%d", &novoApartamento.vagas_garagem);
+            scanf("%d", &apes[napes].area);
+            scanf("%d", &apes[napes].nmr_quartos);
+            scanf("%d", &apes[napes].andar);
+            scanf("%f", &apes[napes].val_condominio);
+            scanf("%d", &apes[napes].vagas_garagem);
 
-            printf("\nDados Inseridos:\n\nTitulo: %s\nPosicao: %s\nArea: %d m\nNumero de Quartos: %d\n"
+            printf("\n\nDados Inseridos:\n\nTitulo: %s\nPosicao: %s\nArea: %d m2\nNumero de Quartos: %d\n"
                    "Andar: %d\nValor do Condominio: R$ %.2f\nQuantidade de Vagas na Garagem: %d\n\n",
-                    novoApartamento.titulo, novoApartamento.posicao, novoApartamento.area, novoApartamento.nmr_quartos,
-                    novoApartamento.andar, novoApartamento.val_condominio, novoApartamento.vagas_garagem);
+                    apes[napes].titulo, apes[napes].posicao, apes[napes].area, apes[napes].nmr_quartos,
+                    apes[napes].andar, apes[napes].val_condominio, apes[napes].vagas_garagem);
+
+            napes++;
 
             break;
 
         case 3:
             fflush(stdin);
-            tTerreno novoTerreno;
 
             printf("> Titulo\n> Area do Terreno\n\n");
 
             printf("Insira as informacoes abaixo:\n\n");
 
-            scanf("%[^\n]s", &string);
-            novoTerreno.titulo = string;
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[nterrenos]);
             fflush(stdin);
 
-            scanf("%d", &novoTerreno.area_terreno);
+            scanf("%d", &terrenos[nterrenos].area_terreno);
 
-            printf("Titulo: %s\nArea do Terreno: %d m\n\n", novoTerreno.titulo, novoTerreno.area_terreno);
+            printf("\nTitulo: %s\nArea do Terreno: %d m2\n\n", terrenos[nterrenos].titulo, terrenos[nterrenos].area_terreno);
+
+            nterrenos++;
 
             break;
 
@@ -128,7 +134,28 @@ void cadastra(){
     }
 }
 
-int principal(){
+void consulta(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
+    int i;
+
+    for(i = 0; i < ncasas; i++){
+        printf("\n@CASA@ID %d@\n\nTitulo: %s\nNumero de Pavimentos: %d\nNumero de Quartos: %d\n"
+                   "Area do Terreno: %d m2\nArea Construida: %d m2\n\n", i, casas[i].titulo, casas[i].nmr_pavimentos,
+                   casas[i].nmr_quartos, casas[i].area_terreno, casas[i].area_construida);
+    }
+
+    for(i = 0; i < napes; i++){
+        printf("\n\n@APARTAMENTO@ID %d@\n\nTitulo: %s\nPosicao: %s\nArea: %d m2\nNumero de Quartos: %d\n"
+                   "Andar: %d\nValor do Condominio: R$ %.2f\nQuantidade de Vagas na Garagem: %d\n\n", i,
+                    apes[i].titulo, apes[i].posicao, apes[i].area, apes[i].nmr_quartos,
+                    apes[i].andar, apes[i].val_condominio, apes[i].vagas_garagem);
+    }
+
+    for(i = 0; i < nterrenos; i++)
+        printf("\n@TERRENO@ID %d@\nTitulo: %s\nArea do Terreno: %d m2\n\n", i, terrenos[i].titulo, terrenos[i].area_terreno);
+
+}
+
+int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
     int opcao, flag = 1;
 
     printf("Qual operacao efetuar?\n\n"
@@ -147,11 +174,11 @@ int principal(){
 
     switch(opcao){
         case 1:
-            cadastra();
+            cadastra(casas, apes, terrenos);
             break;
 
         case 2:
-            //consulta();
+            consulta(casas, apes, terrenos);
             break;
 
         case 3:
@@ -188,8 +215,17 @@ int principal(){
 
 //Main
 int main(){
+    int tam = 100, flag = 1;
 
-    principal();
+    tCasa casas[tam];
+    tApartamento apes[tam];
+    tTerreno terrenos[tam];
+
+    while(flag){
+        flag = principal(casas, apes, terrenos);
+    }
+
+    printf("Encerrando...\nObrigado pela utilizacao!\n");
 
     return 0;
 }
