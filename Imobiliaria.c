@@ -3,9 +3,11 @@
     Casa Grande terreno 700 area 590
 */
 
+//Includes
 #include <stdio.h>
+#include <string.h>
 
-//tipos
+//Tipos
 typedef struct casa{
     char titulo[100];
     char logradouro[100];
@@ -200,10 +202,101 @@ void consulta(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
                    terrenos[i].titulo, terrenos[i].logradouro, terrenos[i].area_terreno,
                    terrenos[i].aluga, terrenos[i].vende, terrenos[i].preco);
     }
-
-
 }
 
+void busca(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
+    int opcao;
+
+    printf("Como deseja efetuar a busca?\n\n"
+           "1. Busca por Titulo\n"
+           "2. Busca por Logradouro\n"
+           "3. Busca acima de um determinado valor\n\n");
+
+    printf("Digite sua opcao: ");
+    scanf("%d", &opcao);
+
+    switch(opcao){
+        float value;
+        char word[100], i;
+
+        case 1:
+            printf("\nEscreva o titulo desejado: ");
+            fflush(stdin);
+            scanf("%[^\n]s", &word);
+            fflush(stdin);
+            printf("\n");
+
+            for(i = 0; i < ncasas; i++){
+                if(strcmp(casas[i].titulo, word) == 0)
+                    printf("@CASAS@ID %d@: %s\n", i, casas[i].titulo);
+            }
+
+            for(i = 0; i < napes; i++){
+                if(strcmp(apes[i].titulo, word) == 0)
+                    printf("@APARTAMENTOS@ID %d@: %s\n", i, apes[i].titulo);
+            }
+
+            for(i = 0; i < nterrenos; i++){
+                if(strcmp(terrenos[i].titulo, word) == 0)
+                    printf("@TERRENOS@ID %d@: %s\n", i, terrenos[i].titulo);
+            }
+
+            printf("\n");
+            break;
+
+        case 2:
+            printf("\nEscreva o Logradouro desejado: ");
+            fflush(stdin);
+            scanf("%[^\n]s", &word);
+            fflush(stdin);
+            printf("\n");
+
+            for(i = 0; i < ncasas; i++){
+                if(strcmp(casas[i].logradouro, word) == 0)
+                    printf("@CASAS@ID %d@: %s\n", i, casas[i].logradouro);
+            }
+
+            for(i = 0; i < napes; i++){
+                if(strcmp(apes[i].logradouro, word) == 0)
+                    printf("@APARTAMENTOS@ID %d@: %s\n", i, apes[i].logradouro);
+            }
+
+            for(i = 0; i < nterrenos; i++){
+                if(strcmp(terrenos[i].logradouro, word) == 0)
+                    printf("@TERRENOS@ID %d@: %s\n", i, terrenos[i].logradouro);
+            }
+
+            printf("\n");
+            break;
+
+        case 3:
+            printf("\nEscreva o valor desejado: ");
+            scanf("%f", &value);
+            printf("\n");
+
+            for(i = 0; i < ncasas; i++){
+                if(casas[i].preco > value)
+                    printf("@CASAS@ID %d@: %.2f\n", i, casas[i].preco);
+            }
+
+            for(i = 0; i < napes; i++){
+                if(apes[i].preco > value)
+                    printf("@APARTAMENTOS@ID %d@: %.2f\n", i, apes[i].preco);
+            }
+
+            for(i = 0; i < nterrenos; i++){
+                if(terrenos[i].preco > value)
+                    printf("@TERRENOS@ID %d@: %.2f\n", i, terrenos[i].preco);
+            }
+
+            printf("\n");
+            break;
+
+
+
+    }
+
+}
 int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
     int opcao, flag = 1;
 
@@ -231,7 +324,7 @@ int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             break;
 
         case 3:
-            //busca();
+            busca(casas, apes, terrenos);
             break;
 
         case 4:
