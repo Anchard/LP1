@@ -8,39 +8,46 @@
 #include <string.h>
 
 //Tipos
-typedef struct casa{
+typedef struct negocios{
     char titulo[100];
-    char logradouro[100];
-    int nmr_pavimentos;
-    int nmr_quartos;
-    int area_terreno;
-    int area_construida;
     int aluga;
     int vende;
     float preco;
+}tNegocios;
+
+typedef struct endereco{
+    char cidade[100];
+    char rua[100];
+    char cep[10];
+    char bairro[100];
+    int nmr;
+}tEndereco;
+
+typedef struct casa{
+    int nmr_pavimentos;
+    int nmr_quartos;
+    float area_terreno;
+    float area_construida;
+    tNegocios negocios;
+    tEndereco endereco;
+
 }tCasa;
 
 typedef struct apartamento{
-    char titulo[100];
     char posicao[100];
-    char logradouro[100];
-    int area;
     int nmr_quartos;
     int andar;
     int vagas_garagem;
-    int aluga;
-    int vende;
+    float area;
     float val_condominio;
-    float preco;
+    tNegocios negocios;
+    tEndereco endereco;
 }tApartamento;
 
 typedef struct terreno{
-    char titulo[100];
-    char logradouro[100];
-    int area_terreno;
-    int aluga;
-    int vende;
-    float preco;
+    float area_terreno;
+    tNegocios negocios;
+    tEndereco endereco;
 }tTerreno;
 
 //Controle
@@ -62,10 +69,13 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
 
     switch(opcao){
         case 1:
-            fflush(stdin);
 
             printf("> Titulo\n"
-                   "> Logradouro\n"
+                   "> Cidade\n"
+                   "> Bairro\n"
+                   "> Rua\n"
+                   "> CEP\n"
+                   "> Numero\n"
                    "> Numero de Pavimentos\n"
                    "> Numero de Quartos\n"
                    "> Area do Terreno\n"
@@ -77,34 +87,56 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             printf("Insira as informacoes abaixo:\n\n");
 
             fflush(stdin);
-            scanf("%[^\n]s", &casas[ncasas].titulo);
-            fflush(stdin);
+            scanf("%[^\n]s", &casas[ncasas].negocios.titulo);
 
             fflush(stdin);
-            scanf("%[^\n]s", &casas[ncasas].logradouro);
+            scanf("%[^\n]s", &casas[ncasas].endereco.cidade);
+
             fflush(stdin);
+            scanf("%[^\n]s", &casas[ncasas].endereco.bairro);
 
-            scanf("%d %d %d %d %d %d", &casas[ncasas].nmr_pavimentos, &casas[ncasas].nmr_quartos,
-                  &casas[ncasas].area_terreno, &casas[ncasas].area_construida, &casas[ncasas].aluga, &casas[ncasas].vende);
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[ncasas].endereco.rua);
 
-            scanf("%f", &casas[ncasas].preco);
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[ncasas].endereco.cep);
 
-            printf("\nDados Inseridos:\n\nTitulo: %s\nLogadouro: %s\nNumero de Pavimentos: %d\nNumero de Quartos: %d\n"
-                   "Area do Terreno: %d m2\nArea Construida: %d m2\nAluga: %d\nVende: %d\nPreco: R$ %.2f\n\n", casas[ncasas].titulo,
-                   casas[ncasas].logradouro, casas[ncasas].nmr_pavimentos, casas[ncasas].nmr_quartos,
-                   casas[ncasas].area_terreno, casas[ncasas].area_construida, casas[ncasas].aluga,
-                   casas[ncasas].vende,casas[ncasas].preco);
+            scanf("%d", &casas[ncasas].endereco.nmr);
+            scanf("%d", &casas[ncasas].nmr_pavimentos);
+            scanf("%d", &casas[ncasas].nmr_quartos);
+            scanf("%f", &casas[ncasas].area_terreno);
+            scanf("%f", &casas[ncasas].area_construida);
+            scanf("%d", &casas[ncasas].negocios.aluga);
+            scanf("%d", &casas[ncasas].negocios.vende);
+            scanf("%f", &casas[ncasas].negocios.preco);
+
+            printf("\nDados Inseridos:\n\nTitulo: %s\n", casas[ncasas].negocios.titulo);
+            printf("Cidade: %s\n", casas[ncasas].endereco.cidade);
+            printf("Bairro: %s\n", casas[ncasas].endereco.bairro);
+            printf("Rua: %s\n", casas[ncasas].endereco.cidade);
+            printf("CEP: %s\n", casas[ncasas].endereco.cep);
+            printf("Numero: %d\n", casas[ncasas].endereco.nmr);
+            printf("Numero de Pavimentos: %d\n", casas[ncasas].nmr_pavimentos);
+            printf("Numero de Quartos: %d\n", casas[ncasas].nmr_quartos);
+            printf("Area do Terreno: %.2f m2\n", casas[ncasas].area_terreno);
+            printf("Area Construida: %.2f m2\n", casas[ncasas].area_construida);
+            printf("Aluga: %d\n", casas[ncasas].negocios.aluga);
+            printf("Vende: %d\n", casas[ncasas].negocios.vende);
+            printf("Preco: R$%.2f\n\n", casas[ncasas].negocios.preco);
 
             ncasas++;
 
             break;
 
         case 2:
-            fflush(stdin);
 
             printf("> Titulo\n"
                    "> Posicao\n"
-                   "> Logradouro\n"
+                   "> Cidade\n"
+                   "> Bairro\n"
+                   "> Rua\n"
+                   "> CEP\n"
+                   "> Numero\n"
                    "> Area\n"
                    "> Numero de Quartos\n"
                    "> Andar\n"
@@ -117,58 +149,99 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             printf("Insira as informacoes abaixo:\n\n");
 
             fflush(stdin);
-            scanf("%[^\n]s", &apes[napes].titulo);
+            scanf("%[^\n]s", &apes[napes].negocios.titulo);
+
             fflush(stdin);
-
-
             scanf("%[^\n]s", &apes[napes].posicao);
-            fflush(stdin);
 
-            scanf("%[^\n]s", &apes[napes].logradouro);
             fflush(stdin);
+            scanf("%[^\n]s", &apes[napes].endereco.cidade);
 
-            scanf("%d", &apes[napes].area);
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[napes].endereco.bairro);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[napes].endereco.rua);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[napes].endereco.cep);
+
+            scanf("%d", &apes[napes].endereco.nmr);
+            scanf("%f", &apes[napes].area);
             scanf("%d", &apes[napes].nmr_quartos);
             scanf("%d", &apes[napes].andar);
             scanf("%f", &apes[napes].val_condominio);
             scanf("%d", &apes[napes].vagas_garagem);
-            scanf("%d", &apes[napes].aluga);
-            scanf("%d", &apes[napes].vende);
-            scanf("%f", &apes[napes].preco);
+            scanf("%d", &apes[napes].negocios.aluga);
+            scanf("%d", &apes[napes].negocios.vende);
+            scanf("%f", &apes[napes].negocios.preco);
 
-            printf("\n\nDados Inseridos:\n\nTitulo: %s\nPosicao: %s\nLogradouro: %s\nArea: %d m2\nNumero de Quartos: %d\n"
-                   "Andar: %d\nValor do Condominio: R$ %.2f\nQuantidade de Vagas na Garagem: %d\nAluga: %d\nVende: %d\nPreco: R$ %.2f\n\n",
-                    apes[napes].titulo, apes[napes].posicao,apes[napes].logradouro, apes[napes].area, apes[napes].nmr_quartos,
-                    apes[napes].andar, apes[napes].val_condominio, apes[napes].vagas_garagem,
-                    apes[napes].aluga, apes[napes].vende, apes[napes].preco);
+            printf("\nDados Inseridos:\n\nTitulo: %s\n", apes[napes].negocios.titulo);
+            printf("Posicao: %s\n", apes[napes].posicao);
+            printf("Cidade: %s\n", apes[napes].endereco.cidade);
+            printf("Bairro: %s\n", apes[napes].endereco.bairro);
+            printf("Rua: %s\n", apes[napes].endereco.cidade);
+            printf("CEP: %s\n", apes[napes].endereco.cep);
+            printf("Numero: %d\n", apes[napes].endereco.nmr);
+            printf("Area: %.2f\n m2", apes[napes].area);
+            printf("Numero de Quartos: %d\n", apes[napes].nmr_quartos);
+            printf("Andar: %d\n", apes[napes].andar);
+            printf("Valor do Condominio: R$ %.2f\n", &apes[napes].val_condominio);
+            printf("Vagas na Garagem: %d\n", apes[napes].vagas_garagem);
+            printf("Aluga: %d\n", apes[napes].negocios.aluga);
+            printf("Vende: %d\n", apes[napes].negocios.vende);
+            printf("Preco: R$ %.2f\n\n", apes[napes].negocios.preco);
 
             napes++;
 
             break;
 
         case 3:
-            fflush(stdin);
 
-            printf("> Titulo\n> Logradouro\n> Area do Terreno\n> Aluga? Sim: 1 Nao: 0\n> Vende? Sim: 1 Nao: 0\n> Preco do Imovel\n\n");
+            printf("> Titulo\n"
+                   "> Cidade\n"
+                   "> Bairro\n"
+                   "> Rua\n"
+                   "> CEP\n"
+                   "> Numero\n"
+                   "> Area do Terreno\n"
+                   "> Aluga? Sim: 1 Nao: 0\n"
+                   "> Vende? Sim: 1 Nao: 0\n"
+                   "> Preco do Imovel\n\n");
 
             printf("Insira as informacoes abaixo:\n\n");
 
             fflush(stdin);
-            scanf("%[^\n]s", &terrenos[nterrenos].titulo);
-            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[nterrenos].negocios.titulo);
 
             fflush(stdin);
-            scanf("%[^\n]s", &terrenos[nterrenos].logradouro);
+            scanf("%[^\n]s", &terrenos[nterrenos].endereco.cidade);
+
             fflush(stdin);
+            scanf("%[^\n]s", &terrenos[nterrenos].endereco.bairro);
 
-            scanf("%d", &terrenos[nterrenos].area_terreno);
-            scanf("%d", &terrenos[nterrenos].aluga);
-            scanf("%d", &terrenos[nterrenos].vende);
-            scanf("%f", &terrenos[nterrenos].preco);
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[nterrenos].endereco.rua);
 
-            printf("\nTitulo: %s\nLogradouro: %s\nArea do Terreno: %d m2\nAluga: %d\nVende: %d\nPreco: R$ %.2f\n\n", terrenos[nterrenos].titulo,
-                   terrenos[nterrenos].logradouro, terrenos[nterrenos].area_terreno, terrenos[nterrenos].aluga,
-                   terrenos[nterrenos].vende, terrenos[nterrenos].preco);
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[nterrenos].endereco.cep);
+
+            scanf("%d", &terrenos[nterrenos].endereco.nmr);
+            scanf("%f", &terrenos[nterrenos].area_terreno);
+            scanf("%d", &terrenos[nterrenos].negocios.aluga);
+            scanf("%d", &terrenos[nterrenos].negocios.vende);
+            scanf("%f", &terrenos[nterrenos].negocios.preco);
+
+            printf("Titulo: %s\n", terrenos[nterrenos].negocios.titulo);
+            printf("Cidade: %s\n", terrenos[nterrenos].endereco.cidade);
+            printf("Bairro: %s\n", terrenos[nterrenos].endereco.bairro);
+            printf("Rua: %s\n", terrenos[nterrenos].endereco.rua);
+            printf("CEP: %s\n", terrenos[nterrenos].endereco.cep);
+            printf("Numero: %d\n", terrenos[nterrenos].endereco.nmr);
+            printf("Area do Terreno: %.2f m2\n", terrenos[nterrenos].area_terreno);
+            printf("Aluga: %d\n", terrenos[nterrenos].negocios.aluga);
+            printf("Vende: %d\n", terrenos[nterrenos].negocios.vende);
+            printf("Preco: %.2f\n\n", terrenos[nterrenos].negocios.preco);
 
             nterrenos++;
 
@@ -184,23 +257,50 @@ void consulta(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
     int i;
 
     for(i = 0; i < ncasas; i++){
-        printf("\n@CASA@ID %d@\n\nTitulo: %s\nLogadouro: %s\nNumero de Pavimentos: %d\nNumero de Quartos: %d\n"
-                   "Area do Terreno: %d m2\nArea Construida: %d m2\nAluga: %d\nVende: %d\nPreco: R$ %.2f\n\n", i, casas[i].titulo, casas[i].logradouro,
-                   casas[i].nmr_pavimentos, casas[i].nmr_quartos, casas[i].area_terreno,
-                   casas[i].area_construida, casas[i].aluga, casas[i].vende, casas[i].preco);
+        printf("\n@CASAS@ID %d@\n\nTitulo: %s\n", i, casas[i].negocios.titulo);
+        printf("Cidade: %s\n", casas[i].endereco.cidade);
+        printf("Bairro: %s\n", casas[i].endereco.bairro);
+        printf("Rua: %s\n", casas[i].endereco.cidade);
+        printf("CEP: %s\n", casas[i].endereco.cep);
+        printf("Numero: %d\n", casas[i].endereco.nmr);
+        printf("Numero de Pavimentos: %d\n", casas[i].nmr_pavimentos);
+        printf("Numero de Quartos: %d\n", casas[i].nmr_quartos);
+        printf("Area do Terreno: %.2f m2\n", casas[i].area_terreno);
+        printf("Area Construida: %.2f m2\n", casas[i].area_construida);
+        printf("Aluga: %d\n", casas[i].negocios.aluga);
+        printf("Vende: %d\n", casas[i].negocios.vende);
+        printf("Preco: R$ %.2f\n\n", casas[i].negocios.preco);
     }
 
     for(i = 0; i < napes; i++){
-        printf("\n@APARTAMENTO@ID %d@\n\nTitulo: %s\nPosicao: %s\nLogradouro: %s\nArea: %d m2\nNumero de Quartos: %d\n"
-                   "Andar: %d\nValor do Condominio: R$ %.2f\nQuantidade de Vagas na Garagem: %d\nAluga: %d\nVende: %d\nPreco: R$ %.2f\n\n", i,
-                    apes[i].titulo, apes[i].posicao, apes[i].logradouro, apes[i].area, apes[i].nmr_quartos,
-                    apes[i].andar, apes[i].val_condominio, apes[i].vagas_garagem, apes[i].aluga, apes[i].vende, apes[i].preco);
+        printf("\n@APARTAMENTOS@ID %d@\n\nTitulo: %s\n", i, apes[i].negocios.titulo);
+        printf("Posicao: %s\n", apes[i].posicao);
+        printf("Cidade: %s\n", apes[i].endereco.cidade);
+        printf("Bairro: %s\n", apes[i].endereco.bairro);
+        printf("Rua: %s\n", apes[i].endereco.cidade);
+        printf("CEP: %s\n", apes[i].endereco.cep);
+        printf("Numero: %d\n", apes[i].endereco.nmr);
+        printf("Area: %.2f\n m2", apes[i].area);
+        printf("Numero de Quartos: %d\n", apes[i].nmr_quartos);
+        printf("Andar: %d\n", apes[i].andar);
+        printf("Valor do Condominio: R$ %.2f\n", &apes[i].val_condominio);
+        printf("Vagas na Garagem: %d\n", apes[i].vagas_garagem);
+        printf("Aluga: %d\n", apes[i].negocios.aluga);
+        printf("Vende: %d\n", apes[i].negocios.vende);
+        printf("Preco: %.2f\n\n", apes[i].negocios.preco);
     }
 
     for(i = 0; i < nterrenos; i++){
-        printf("\n@TERRENOS@ID %d@\nTitulo: %s\nLogradouro: %s\nArea do Terreno: %d m2\nAluga: %d\nVende: %d\nPreco: R$ %.2f\n\n", i,
-                   terrenos[i].titulo, terrenos[i].logradouro, terrenos[i].area_terreno,
-                   terrenos[i].aluga, terrenos[i].vende, terrenos[i].preco);
+        printf("@TERRENOS@ID %d@\n\nTitulo: %s\n", i, terrenos[i].negocios.titulo);
+        printf("Cidade: %s\n", terrenos[i].endereco.cidade);
+        printf("Bairro: %s\n", terrenos[i].endereco.bairro);
+        printf("Rua: %s\n", terrenos[i].endereco.rua);
+        printf("CEP: %s\n", terrenos[i].endereco.cep);
+        printf("Numero: %d\n", terrenos[i].endereco.nmr);
+        printf("Area do Terreno: %.2f\n m2", terrenos[i].area_terreno);
+        printf("Aluga: %d\n", terrenos[i].negocios.aluga);
+        printf("Vende: %d\n", terrenos[i].negocios.vende);
+        printf("Preco: R$ %.2f\n\n", terrenos[i].negocios.preco);
     }
 }
 
@@ -209,8 +309,10 @@ void busca(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
 
     printf("Como deseja efetuar a busca?\n\n"
            "1. Busca por Titulo\n"
-           "2. Busca por Logradouro\n"
-           "3. Busca acima de um determinado valor\n\n");
+           "2. Busca por Bairro\n"
+           "3. Busca acima de um determinado valor\n"
+           "4. Busca de Imoveis para Alugar\n"
+           "5. Busca de Imoveis para Vender\n\n");
 
     printf("Digite sua opcao: ");
     scanf("%d", &opcao);
@@ -221,49 +323,49 @@ void busca(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
 
         case 1:
             printf("\nEscreva o titulo desejado: ");
+
             fflush(stdin);
             scanf("%[^\n]s", &word);
-            fflush(stdin);
             printf("\n");
 
             for(i = 0; i < ncasas; i++){
-                if(strcmp(casas[i].titulo, word) == 0)
-                    printf("@CASAS@ID %d@: %s\n", i, casas[i].titulo);
+                if(strcmp(casas[i].negocios.titulo, word) == 0)
+                    printf("@CASAS@ID %d@: %s\n", i, casas[i].negocios.titulo);
             }
 
             for(i = 0; i < napes; i++){
-                if(strcmp(apes[i].titulo, word) == 0)
-                    printf("@APARTAMENTOS@ID %d@: %s\n", i, apes[i].titulo);
+                if(strcmp(apes[i].negocios.titulo, word) == 0)
+                    printf("@APARTAMENTOS@ID %d@: %s\n", i, apes[i].negocios.titulo);
             }
 
             for(i = 0; i < nterrenos; i++){
-                if(strcmp(terrenos[i].titulo, word) == 0)
-                    printf("@TERRENOS@ID %d@: %s\n", i, terrenos[i].titulo);
+                if(strcmp(terrenos[i].negocios.titulo, word) == 0)
+                    printf("@TERRENOS@ID %d@: %s\n", i, terrenos[i].negocios.titulo);
             }
 
             printf("\n");
             break;
 
         case 2:
-            printf("\nEscreva o Logradouro desejado: ");
+            printf("\nEscreva o Bairro Desejado: ");
+
             fflush(stdin);
             scanf("%[^\n]s", &word);
-            fflush(stdin);
             printf("\n");
 
             for(i = 0; i < ncasas; i++){
-                if(strcmp(casas[i].logradouro, word) == 0)
-                    printf("@CASAS@ID %d@: %s\n", i, casas[i].logradouro);
+                if(strcmp(casas[i].endereco.bairro, word) == 0)
+                    printf("@CASAS@ID %d@: %s\n", i, casas[i].endereco.bairro);
             }
 
             for(i = 0; i < napes; i++){
-                if(strcmp(apes[i].logradouro, word) == 0)
-                    printf("@APARTAMENTOS@ID %d@: %s\n", i, apes[i].logradouro);
+                if(strcmp(apes[i].endereco.bairro, word) == 0)
+                    printf("@APARTAMENTOS@ID %d@: %s\n", i, apes[i].endereco.bairro);
             }
 
             for(i = 0; i < nterrenos; i++){
-                if(strcmp(terrenos[i].logradouro, word) == 0)
-                    printf("@TERRENOS@ID %d@: %s\n", i, terrenos[i].logradouro);
+                if(strcmp(terrenos[i].endereco.bairro, word) == 0)
+                    printf("@TERRENOS@ID %d@: %s\n", i, terrenos[i].endereco.bairro);
             }
 
             printf("\n");
@@ -271,28 +373,67 @@ void busca(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
 
         case 3:
             printf("\nEscreva o valor desejado: ");
+
             scanf("%f", &value);
             printf("\n");
 
             for(i = 0; i < ncasas; i++){
-                if(casas[i].preco > value)
-                    printf("@CASAS@ID %d@: %.2f\n", i, casas[i].preco);
+                if(casas[i].negocios.preco > value)
+                    printf("@CASAS@ID %d@: R$ %.2f\n", i, casas[i].negocios.preco);
             }
 
             for(i = 0; i < napes; i++){
-                if(apes[i].preco > value)
-                    printf("@APARTAMENTOS@ID %d@: %.2f\n", i, apes[i].preco);
+                if(apes[i].negocios.preco > value)
+                    printf("@APARTAMENTOS@ID %d@: R$ %.2f\n", i, apes[i].negocios.preco);
             }
 
             for(i = 0; i < nterrenos; i++){
-                if(terrenos[i].preco > value)
-                    printf("@TERRENOS@ID %d@: %.2f\n", i, terrenos[i].preco);
+                if(terrenos[i].negocios.preco > value)
+                    printf("@TERRENOS@ID %d@: R$ %.2f\n", i, terrenos[i].negocios.preco);
             }
 
             printf("\n");
             break;
 
+        case 4:
 
+            for(i = 0; i < ncasas; i++){
+                if(casas[i].negocios.aluga > 0)
+                    printf("@CASAS@ID %d@: Disponivel para Aluguel\n", i);
+            }
+
+            for(i = 0; i < napes; i++){
+                if(apes[i].negocios.aluga > 0)
+                    printf("@APARTAMENTOS@ID %d@: Disponivel para Aluguel\n", i);
+            }
+
+            for(i = 0; i < nterrenos; i++){
+                if(terrenos[i].negocios.aluga > 0)
+                    printf("@TERRENOS@ID %d@: Disponivel para Aluguel\n", i);
+            }
+
+            printf("\n");
+            break;
+
+        case 5:
+
+            for(i = 0; i < ncasas; i++){
+                if(casas[i].negocios.vende > 0)
+                    printf("@CASAS@ID %d@: Disponivel para Venda\n", i);
+            }
+
+            for(i = 0; i < napes; i++){
+                if(apes[i].negocios.vende > 0)
+                    printf("@APARTAMENTOS@ID %d@: Disponivel para Venda\n", i);
+            }
+
+            for(i = 0; i < nterrenos; i++){
+                if(terrenos[i].negocios.vende > 0)
+                    printf("@TERRENOS@ID %d@: Disponivel para Venda\n", i);
+            }
+
+            printf("\n");
+            break;
 
     }
 
@@ -328,19 +469,19 @@ int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             break;
 
         case 4:
-            //edita();
+            //remove();
             break;
 
         case 5:
-            //consulta_tipo();
+            //edita();
             break;
 
         case 6:
-            //carrega();
+            //salva();
             break;
 
         case 7:
-            //salva();
+            //carrega();
             break;
 
         case 8:
