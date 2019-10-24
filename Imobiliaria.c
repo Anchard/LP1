@@ -232,7 +232,7 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             scanf("%d", &terrenos[nterrenos].negocios.vende);
             scanf("%f", &terrenos[nterrenos].negocios.preco);
 
-            printf("Titulo: %s\n", terrenos[nterrenos].negocios.titulo);
+            printf("\nTitulo: %s\n", terrenos[nterrenos].negocios.titulo);
             printf("Cidade: %s\n", terrenos[nterrenos].endereco.cidade);
             printf("Bairro: %s\n", terrenos[nterrenos].endereco.bairro);
             printf("Rua: %s\n", terrenos[nterrenos].endereco.rua);
@@ -435,9 +435,238 @@ void busca(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             printf("\n");
             break;
 
-    }
+        default :
+            printf ("Valor invalido!\n");
 
+    }
 }
+
+void removeImovel(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
+    int opcao, id;
+
+    printf("O que deseja remover?\n\n"
+           "1. Casa\n"
+           "2. Apartamento\n"
+           "3. Terreno\n\n");
+
+    printf("Digite a opcao desejada: ");
+    scanf("%d", &opcao);
+    printf("\n");
+
+    switch(opcao){
+        case 1:
+            printf("Digite o ID da Casa: ");
+            scanf("%d", &id);
+            printf("\n");
+
+            for(int i = 0; i < ncasas; i++){
+                if(i >= id && i + 1 < ncasas)
+                    casas[i] = casas[i + 1];
+            }
+
+            ncasas--;
+            printf("Casa Removida com Sucesso!\n\n");
+
+            break;
+
+        case 2:
+            printf("Digite o ID do Apartamento: ");
+            scanf("%d", &id);
+            printf("\n");
+
+            for(int i = 0; i < napes; i++){
+                if(i >= id && i + 1 < napes)
+                    apes[i] = apes[i + 1];
+            }
+
+            napes--;
+            printf("Apartamento Removido com Sucesso!\n\n");
+
+            break;
+
+        case 3:
+            printf("Digite o ID do Terreno: ");
+            scanf("%d", &id);
+            printf("\n");
+
+            for(int i = 0; i < nterrenos; i++){
+                if(i >= id && i + 1 < nterrenos)
+                    terrenos[i] = terrenos[i + 1];
+            }
+
+            nterrenos--;
+            printf("Terreno Removido com Sucesso!\n\n");
+
+            break;
+
+        default :
+            printf ("Valor invalido!\n");
+    }
+}
+
+void edita(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
+    int opcao, id;
+
+    printf("O que deseja editar?\n\n"
+           "1. Casa\n"
+           "2. Apartamento\n"
+           "3. Terreno\n\n");
+
+    printf("Digite a opcao desejada: ");
+    scanf("%d", &opcao);
+    printf("\n");
+
+    switch(opcao){
+        case 1:
+            printf("Digite o ID da Casa: ");
+            scanf("%d", &id);
+            printf("\n");
+
+            printf("> Titulo\n"
+                   "> Cidade\n"
+                   "> Bairro\n"
+                   "> Rua\n"
+                   "> CEP\n"
+                   "> Numero\n"
+                   "> Numero de Pavimentos\n"
+                   "> Numero de Quartos\n"
+                   "> Area do Terreno\n"
+                   "> Area Construida\n"
+                   "> Aluga? Sim: 1 Nao: 0\n"
+                   "> Vende? Sim: 1 Nao: 0\n"
+                   "> Preco do Imovel\n\n");
+
+            printf("Insira as informacoes abaixo:\n\n");
+
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[id].negocios.titulo);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[id].endereco.cidade);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[id].endereco.bairro);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[id].endereco.rua);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[id].endereco.cep);
+
+            scanf("%d", &casas[id].endereco.nmr);
+            scanf("%d", &casas[id].nmr_pavimentos);
+            scanf("%d", &casas[id].nmr_quartos);
+            scanf("%f", &casas[id].area_terreno);
+            scanf("%f", &casas[id].area_construida);
+            scanf("%d", &casas[id].negocios.aluga);
+            scanf("%d", &casas[id].negocios.vende);
+            scanf("%f", &casas[id].negocios.preco);
+
+            printf("\nCasa Editada com Sucesso!\n\n");
+
+            break;
+
+        case 2:
+            printf("Digite o ID do Apartamento: ");
+            scanf("%d", &id);
+            printf("\n");
+
+            printf("\n> Titulo\n"
+                   "> Posicao\n"
+                   "> Cidade\n"
+                   "> Bairro\n"
+                   "> Rua\n"
+                   "> CEP\n"
+                   "> Numero\n"
+                   "> Area\n"
+                   "> Numero de Quartos\n"
+                   "> Andar\n"
+                   "> Valor do Codominio\n"
+                   "> Quantidade de Vagas na Garagem\n"
+                   "> Aluga? Sim: 1 Nao: 0\n"
+                   "> Vende? Sim: 1 Nao: 0\n"
+                   "> Preco do Imovel\n\n");
+
+            printf("Insira as informacoes abaixo:\n\n");
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[id].negocios.titulo);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[id].posicao);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[id].endereco.cidade);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[id].endereco.bairro);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[id].endereco.rua);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[id].endereco.cep);
+
+            scanf("%d", &apes[id].endereco.nmr);
+            scanf("%f", &apes[id].area);
+            scanf("%d", &apes[id].nmr_quartos);
+            scanf("%d", &apes[id].andar);
+            scanf("%f", &apes[id].val_condominio);
+            scanf("%d", &apes[id].vagas_garagem);
+            scanf("%d", &apes[id].negocios.aluga);
+            scanf("%d", &apes[id].negocios.vende);
+            scanf("%f", &apes[id].negocios.preco);
+            printf("\nApartamento Editado com Sucesso!\n\n");
+
+            break;
+
+        case 3:
+            printf("Digite o ID do Terreno: ");
+            scanf("%d", &id);
+            printf("\n");
+
+             printf("\n> Titulo\n"
+                   "> Cidade\n"
+                   "> Bairro\n"
+                   "> Rua\n"
+                   "> CEP\n"
+                   "> Numero\n"
+                   "> Area do Terreno\n"
+                   "> Aluga? Sim: 1 Nao: 0\n"
+                   "> Vende? Sim: 1 Nao: 0\n"
+                   "> Preco do Imovel\n\n");
+
+            printf("Insira as informacoes abaixo:\n\n");
+
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[id].negocios.titulo);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[id].endereco.cidade);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[id].endereco.bairro);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[id].endereco.rua);
+
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[id].endereco.cep);
+
+            scanf("%d", &terrenos[id].endereco.nmr);
+            scanf("%f", &terrenos[id].area_terreno);
+            scanf("%d", &terrenos[id].negocios.aluga);
+            scanf("%d", &terrenos[id].negocios.vende);
+            scanf("%f", &terrenos[id].negocios.preco);
+            printf("Terreno Editado com Sucesso!\n\n");
+
+            break;
+
+        default :
+            printf ("Valor invalido!\n");
+    }
+}
+
 int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
     int opcao, flag = 1;
 
@@ -445,10 +674,10 @@ int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
            "1. Cadastro de Imoveis\n"
            "2. Consultar todos os Imoveis\n"
            "3. Busca de Imoveis\n"
-           "4. Editar informacoes de imoveis\n"
-           "5. Consultar todos os Imoveis por Tipo\n"
-           "6. Carregar Dados\n"
-           "7. Salvar Dados\n"
+           "4. Remover Imovel\n"
+           "5. Editar Imovel\n"
+           "6. Salvar Dados\n"
+           "7. Carregar Dados\n"
            "8. Sair\n\n");
 
     printf("Digite a opcao desejada: ");
@@ -469,11 +698,11 @@ int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             break;
 
         case 4:
-            //remove();
+            removeImovel(casas, apes, terrenos);
             break;
 
         case 5:
-            //edita();
+            edita(casas, apes, terrenos);
             break;
 
         case 6:
