@@ -1,8 +1,3 @@
-/** Casa Pequena terreno 200 area 90
-    Casa Média  terreno 400 area 290
-    Casa Grande terreno 700 area 590
-*/
-
 //Includes
 #include <stdio.h>
 #include <string.h>
@@ -20,7 +15,7 @@ typedef struct endereco{
     char rua[100];
     char cep[10];
     char bairro[100];
-    int nmr;
+    char nmr[5];
 }tEndereco;
 
 typedef struct casa{
@@ -101,7 +96,9 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             fflush(stdin);
             scanf("%[^\n]s", &casas[ncasas].endereco.cep);
 
-            scanf("%d", &casas[ncasas].endereco.nmr);
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[ncasas].endereco.nmr);
+
             scanf("%d", &casas[ncasas].nmr_pavimentos);
             scanf("%d", &casas[ncasas].nmr_quartos);
             scanf("%f", &casas[ncasas].area_terreno);
@@ -115,7 +112,7 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             printf("Bairro: %s\n", casas[ncasas].endereco.bairro);
             printf("Rua: %s\n", casas[ncasas].endereco.cidade);
             printf("CEP: %s\n", casas[ncasas].endereco.cep);
-            printf("Numero: %d\n", casas[ncasas].endereco.nmr);
+            printf("Numero: %s\n", casas[ncasas].endereco.nmr);
             printf("Numero de Pavimentos: %d\n", casas[ncasas].nmr_pavimentos);
             printf("Numero de Quartos: %d\n", casas[ncasas].nmr_quartos);
             printf("Area do Terreno: %.2f m2\n", casas[ncasas].area_terreno);
@@ -166,7 +163,9 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             fflush(stdin);
             scanf("%[^\n]s", &apes[napes].endereco.cep);
 
-            scanf("%d", &apes[napes].endereco.nmr);
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[napes].endereco.nmr);
+
             scanf("%f", &apes[napes].area);
             scanf("%d", &apes[napes].nmr_quartos);
             scanf("%d", &apes[napes].andar);
@@ -182,7 +181,7 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             printf("Bairro: %s\n", apes[napes].endereco.bairro);
             printf("Rua: %s\n", apes[napes].endereco.cidade);
             printf("CEP: %s\n", apes[napes].endereco.cep);
-            printf("Numero: %d\n", apes[napes].endereco.nmr);
+            printf("Numero: %s\n", apes[napes].endereco.nmr);
             printf("Area: %.2f\n m2", apes[napes].area);
             printf("Numero de Quartos: %d\n", apes[napes].nmr_quartos);
             printf("Andar: %d\n", apes[napes].andar);
@@ -226,7 +225,9 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             fflush(stdin);
             scanf("%[^\n]s", &terrenos[nterrenos].endereco.cep);
 
-            scanf("%d", &terrenos[nterrenos].endereco.nmr);
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[nterrenos].endereco.nmr);
+
             scanf("%f", &terrenos[nterrenos].area_terreno);
             scanf("%d", &terrenos[nterrenos].negocios.aluga);
             scanf("%d", &terrenos[nterrenos].negocios.vende);
@@ -237,7 +238,7 @@ void cadastra(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             printf("Bairro: %s\n", terrenos[nterrenos].endereco.bairro);
             printf("Rua: %s\n", terrenos[nterrenos].endereco.rua);
             printf("CEP: %s\n", terrenos[nterrenos].endereco.cep);
-            printf("Numero: %d\n", terrenos[nterrenos].endereco.nmr);
+            printf("Numero: %s\n", terrenos[nterrenos].endereco.nmr);
             printf("Area do Terreno: %.2f m2\n", terrenos[nterrenos].area_terreno);
             printf("Aluga: %d\n", terrenos[nterrenos].negocios.aluga);
             printf("Vende: %d\n", terrenos[nterrenos].negocios.vende);
@@ -262,7 +263,7 @@ void consulta(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
         printf("Bairro: %s\n", casas[i].endereco.bairro);
         printf("Rua: %s\n", casas[i].endereco.cidade);
         printf("CEP: %s\n", casas[i].endereco.cep);
-        printf("Numero: %d\n", casas[i].endereco.nmr);
+        printf("Numero: %s\n", casas[i].endereco.nmr);
         printf("Numero de Pavimentos: %d\n", casas[i].nmr_pavimentos);
         printf("Numero de Quartos: %d\n", casas[i].nmr_quartos);
         printf("Area do Terreno: %.2f m2\n", casas[i].area_terreno);
@@ -279,7 +280,7 @@ void consulta(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
         printf("Bairro: %s\n", apes[i].endereco.bairro);
         printf("Rua: %s\n", apes[i].endereco.cidade);
         printf("CEP: %s\n", apes[i].endereco.cep);
-        printf("Numero: %d\n", apes[i].endereco.nmr);
+        printf("Numero: %s\n", apes[i].endereco.nmr);
         printf("Area: %.2f\n m2", apes[i].area);
         printf("Numero de Quartos: %d\n", apes[i].nmr_quartos);
         printf("Andar: %d\n", apes[i].andar);
@@ -296,7 +297,7 @@ void consulta(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
         printf("Bairro: %s\n", terrenos[i].endereco.bairro);
         printf("Rua: %s\n", terrenos[i].endereco.rua);
         printf("CEP: %s\n", terrenos[i].endereco.cep);
-        printf("Numero: %d\n", terrenos[i].endereco.nmr);
+        printf("Numero: %s\n", terrenos[i].endereco.nmr);
         printf("Area do Terreno: %.2f\n m2", terrenos[i].area_terreno);
         printf("Aluga: %d\n", terrenos[i].negocios.aluga);
         printf("Vende: %d\n", terrenos[i].negocios.vende);
@@ -553,7 +554,9 @@ void edita(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             fflush(stdin);
             scanf("%[^\n]s", &casas[id].endereco.cep);
 
-            scanf("%d", &casas[id].endereco.nmr);
+            fflush(stdin);
+            scanf("%[^\n]s", &casas[id].endereco.nmr);
+
             scanf("%d", &casas[id].nmr_pavimentos);
             scanf("%d", &casas[id].nmr_quartos);
             scanf("%f", &casas[id].area_terreno);
@@ -607,7 +610,9 @@ void edita(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             fflush(stdin);
             scanf("%[^\n]s", &apes[id].endereco.cep);
 
-            scanf("%d", &apes[id].endereco.nmr);
+            fflush(stdin);
+            scanf("%[^\n]s", &apes[id].endereco.nmr);
+
             scanf("%f", &apes[id].area);
             scanf("%d", &apes[id].nmr_quartos);
             scanf("%d", &apes[id].andar);
@@ -653,7 +658,9 @@ void edita(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             fflush(stdin);
             scanf("%[^\n]s", &terrenos[id].endereco.cep);
 
-            scanf("%d", &terrenos[id].endereco.nmr);
+            fflush(stdin);
+            scanf("%[^\n]s", &terrenos[id].endereco.nmr);
+
             scanf("%f", &terrenos[id].area_terreno);
             scanf("%d", &terrenos[id].negocios.aluga);
             scanf("%d", &terrenos[id].negocios.vende);
@@ -665,6 +672,68 @@ void edita(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
         default :
             printf ("Valor invalido!\n");
     }
+}
+
+void salva(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
+    FILE *fp;
+    fp = fopen("db.txt", "w");
+
+    if(fp == NULL) printf("Impossivel Escrever em Arquivo\n\n");
+
+    fprintf(fp, "%d\n", ncasas);
+    fprintf(fp, "%d\n", napes);
+    fprintf(fp, "%d\n", nterrenos);
+
+    for(int i = 0; i < ncasas; i++){
+        fprintf(fp, "%s\n", casas[i].negocios.titulo);
+        fprintf(fp, "%s\n", casas[i].endereco.cidade);
+        fprintf(fp, "%s\n", casas[i].endereco.bairro);
+        fprintf(fp, "%s\n", casas[i].endereco.cidade);
+        fprintf(fp, "%s\n", casas[i].endereco.cep);
+        fprintf(fp, "%s\n", casas[i].endereco.nmr);
+        fprintf(fp, "%d\n", casas[i].nmr_pavimentos);
+        fprintf(fp, "%d\n", casas[i].nmr_quartos);
+        fprintf(fp, "%.2f\n", casas[i].area_terreno);
+        fprintf(fp, "%.2f\n", casas[i].area_construida);
+        fprintf(fp, "%d\n", casas[i].negocios.aluga);
+        fprintf(fp, "%d\n", casas[i].negocios.vende);
+        fprintf(fp, "%.2f\n", casas[i].negocios.preco);
+    }
+
+    for(int i = 0; i < napes; i++){
+        fprintf(fp, "%s\n", apes[i].negocios.titulo);
+        fprintf(fp, "%s\n", apes[i].posicao);
+        fprintf(fp, "%s\n", apes[i].endereco.cidade);
+        fprintf(fp, "%s\n", apes[i].endereco.bairro);
+        fprintf(fp, "%s\n", apes[i].endereco.cidade);
+        fprintf(fp, "%s\n", apes[i].endereco.cep);
+        fprintf(fp, "%s\n", apes[i].endereco.nmr);
+        fprintf(fp, "%.2f\n", apes[i].area);
+        fprintf(fp, "%d\n", apes[i].nmr_quartos);
+        fprintf(fp, "%d\n", apes[i].andar);
+        fprintf(fp, "%.2f\n", &apes[i].val_condominio);
+        fprintf(fp, "%d\n", apes[i].vagas_garagem);
+        fprintf(fp, "%d\n", apes[i].negocios.aluga);
+        fprintf(fp, "%d\n", apes[i].negocios.vende);
+        fprintf(fp, "%.2f\n", apes[i].negocios.preco);
+    }
+
+    for(int i = 0; i < nterrenos; i++){
+        fprintf(fp, "%s\n", terrenos[i].negocios.titulo);
+        fprintf(fp, "%s\n", terrenos[i].endereco.cidade);
+        fprintf(fp, "%s\n", terrenos[i].endereco.bairro);
+        fprintf(fp, "%s\n", terrenos[i].endereco.rua);
+        fprintf(fp, "%s\n", terrenos[i].endereco.cep);
+        fprintf(fp, "%s\n", terrenos[i].endereco.nmr);
+        fprintf(fp, "%.2f\n", terrenos[i].area_terreno);
+        fprintf(fp, "%d\n", terrenos[i].negocios.aluga);
+        fprintf(fp, "%d\n", terrenos[i].negocios.vende);
+        fprintf(fp, "%.2f\n", terrenos[i].negocios.preco);
+    }
+
+    printf("\n----> Dados Salvos com Sucesso! <------\n\n");
+
+    fclose(fp);
 }
 
 int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
@@ -706,7 +775,7 @@ int principal(tCasa *casas, tApartamento *apes, tTerreno *terrenos){
             break;
 
         case 6:
-            //salva();
+            salva(casas, apes, terrenos);
             break;
 
         case 7:
