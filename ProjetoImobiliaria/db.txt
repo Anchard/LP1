@@ -1,0 +1,69 @@
+2
+1
+2
+Casa Pequena em Mangabeira
+Joao Pessoa
+Mangabeira 7
+Marizete Silva
+58058001
+001
+1
+2
+200.00
+90.00
+1
+1
+80000.00
+250.00
+Casa Grande em Manaira
+Joao Pessoa
+Manaira
+Cidade das Flores
+58058002
+002
+2
+6
+600.00
+490.00
+0
+1
+750000.00
+0.00
+Apartamento Medio em Jaguaribe
+Nascente
+Joao Pessoa
+Jaguaribe
+Germiniano da Franca
+58058003
+003
+450.00
+587
+0
+450.00
+2
+1
+1
+600000.00
+1000.00
+Terreno Pequeno
+Joao Pessoa
+Mangabeira 7
+Josefa Taveira
+58058004
+004
+200.00
+0
+1
+35000.00
+0.00
+ttt
+ccc
+bbb
+rrr
+1
+1
+1.00
+1
+1
+1.00
+1.00
