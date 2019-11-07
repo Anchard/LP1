@@ -4,6 +4,18 @@
 
 using namespace std;
 
+//funcao auxiliar p/ classes
+int tratamentoDia(int dia, int lim){
+    while(dia < 1 || dia > lim){
+        cout << "Digite um dia valido!\n";
+        cout << "Dia -- dd: ";
+        cin >> dia;
+        cout << "\n";
+    }
+
+    return dia;
+}
+
 //classes
 class Data{
     private:
@@ -13,7 +25,35 @@ class Data{
 
     public:
         //construtor
-        Data(int mes, int dia, int ano){
+        Data(int dia, int mes, int ano){
+
+            while(mes < 1 || mes > 12){
+                cout << "Digite um mes valido!\n";
+                cout << "Mes -- mm: ";
+                cin >> mes;
+                cout << "\n";
+            }
+
+            if(mes == 1) dia = tratamentoDia(dia, 31);
+            else if(mes == 2) dia = tratamentoDia(dia, 28);
+            else if(mes == 3) dia = tratamentoDia(dia, 31);
+            else if(mes == 4) dia = tratamentoDia(dia, 30);
+            else if(mes == 5) dia = tratamentoDia(dia, 31);
+            else if(mes == 6) dia = tratamentoDia(dia, 30);
+            else if(mes == 7) dia = tratamentoDia(dia, 31);
+            else if(mes == 8) dia = tratamentoDia(dia, 31);
+            else if(mes == 9) dia = tratamentoDia(dia, 30);
+            else if(mes == 10) dia = tratamentoDia(dia, 31);
+            else if(mes == 11) dia = tratamentoDia(dia, 30);
+            else if(mes == 12) dia = tratamentoDia(dia, 31);
+
+            while(ano < 1900 || ano > 2019){
+                cout << "Digite um ano valido!\n";
+                cout << "Ano -- aaaa: ";
+                cin >> ano;
+                cout << "\n";
+            }
+
             this->mes = mes;
             this->dia = dia;
             this->ano = ano;
@@ -88,6 +128,32 @@ class Empregado{
 
         float getSalarioAnual(int aumento);
 
+};
+
+class Pessoa{
+    private:
+        string nome;
+        int idade;
+        string telefone;
+
+    public:
+        Pessoa(string nome){
+            this->nome = nome;
+        }
+
+        Pessoa(string nome, int idade, string telefone){
+            this->nome = nome;
+            this->idade = idade;
+            this->telefone = telefone;
+        }
+
+        void setNome(string nome);
+        void setIdade(int idade);
+        void setTelefone(string telefone);
+
+        string getNome();
+        int getIdade();
+        string getTelefone();
 };
 
 //funcoes Data
@@ -184,51 +250,67 @@ float Empregado::getSalarioAnual(int aumento){
     return (this->salario * 13) + (salario * aumento/100 * 13);
 }
 
+//funcoes Pessoa
+void Pessoa::setNome(string nome){
+    this->nome = nome;
+}
+
+void Pessoa::setIdade(int idade){
+    this->idade = idade;
+}
+
+void Pessoa::setTelefone(string telefone){
+    this->telefone = telefone;
+}
+
+string Pessoa::getNome(){
+    return this->nome;
+}
+
+int Pessoa::getIdade(){
+    return this->idade;
+}
+
+string Pessoa::getTelefone(){
+    return this->telefone;
+}
+//funcoes main
+void testaData(){
+    Data d(30, -1, 2000);
+    cout << d.getDia() << endl;
+    cout << d.getMes() << endl;
+    cout << d.getAno() << endl;
+}
+void principal(){
+    int opc;
+    cout << "Digite a opcao desejada:\n1. Data\n2. Invoice\n3. Empregado\n4. Pessoa\n\n";
+    cout << "Opcao: ";
+    cin >> opc;
+    cout << "\n";
+
+    switch(opc){
+        case 1:
+            testaData();
+            break;
+
+        case 2:
+            //testaInvoice();
+            break;
+
+        case 3:
+            //testaEmpregado();
+            break;
+
+        case 4:
+            //testaPessoa();
+            break;
+    }
+}
+
 //main
 int main (){
-    int mes, dia, ano;
-    int numero, quantidade;
-    string descricao;
-    float preco;
-    string nome, sobrenome;
-    float salario;
-    int aumento;
 
-    cout << "Digite:\n> Mes\n> Dia\n> Ano\n\n";
-    cin >> mes >> dia >> ano;
-    cout << endl;
-
-    Data primeiraData(mes, dia, ano);
-    primeiraData.avancarDia();
-
-    cout << primeiraData.getMes() << endl;
-    primeiraData.setDia(1);
-    cout << primeiraData.getDia() << endl;
-    cout << primeiraData.getAno() << endl;
-
-    cout << "Digite:\n> Numero\n> Descricao\n> Quantidade\n> Preco\n\n";
-    cin >> numero;
-    fflush(stdin);
-    getline(cin, descricao);
-    cin >> quantidade >> preco;
-
-    cout << endl;
-
-    Invoice primeiroInvoice(numero, descricao, quantidade, preco);
-    cout << primeiroInvoice.getNumero() << endl;
-    cout << primeiroInvoice.getDescricao() << endl;
-    cout << primeiroInvoice.getQuantidade() << endl;
-    cout << primeiroInvoice.getPreco() << endl;
-    cout << primeiroInvoice.getInvoiceAmount() << endl;
-
-    cout << endl << endl << "EMPREGADO" << endl << endl;
-    cin >> nome >> sobrenome >> salario >> aumento;
-    Empregado primeiroEmpregado(nome, sobrenome, salario);
-    cout << primeiroEmpregado.getNome() << endl;
-    cout << primeiroEmpregado.getSobrenome() << endl;
-    cout << primeiroEmpregado.getSalario() << endl;
-    cout << primeiroEmpregado.getSalarioAnual(aumento) << endl;
-
+    principal();
 
     return 0;
 }
