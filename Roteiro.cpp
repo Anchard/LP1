@@ -65,6 +65,31 @@ class Invoice{
         float getInvoiceAmount();
 };
 
+class Empregado{
+    private:
+        string nome;
+        string sobrenome;
+        float salario;
+
+    public:
+        Empregado(string nome, string sobrenome, float salario){
+            this->nome = nome;
+            this->sobrenome = sobrenome;
+            this->salario = salario;
+        }
+
+        void setNome(string nome);
+        void setSobrenome(string sobrenome);
+        void setSalario(float salario);
+
+        string getNome();
+        string getSobrenome();
+        float getSalario();
+
+        float getSalarioAnual(int aumento);
+
+};
+
 //funcoes Data
 void Data::setMes(int mes){
     this->mes = mes;
@@ -113,6 +138,7 @@ void Invoice::setPreco(float preco){
 int Invoice::getNumero(){
     return this->numero;
 }
+
 string Invoice::getDescricao(){
     return this->descricao;
 }
@@ -129,6 +155,34 @@ float Invoice::getInvoiceAmount(){
     return this->preco * this->quantidade;
 }
 
+//funcoes Empregado
+void Empregado::setNome(string nome){
+    this->nome = nome;
+}
+
+void Empregado::setSobrenome(string sobrenome){
+    this->sobrenome = sobrenome;
+}
+
+void Empregado::setSalario(float salario){
+    this->salario = salario;
+}
+
+string Empregado::getNome(){
+    return this->nome;
+}
+
+string Empregado::getSobrenome(){
+    return this->sobrenome;
+}
+
+float Empregado::getSalario(){
+    return this->salario;
+}
+
+float Empregado::getSalarioAnual(int aumento){
+    return (this->salario * 13) + (salario * aumento/100 * 13);
+}
 
 //main
 int main (){
@@ -136,6 +190,9 @@ int main (){
     int numero, quantidade;
     string descricao;
     float preco;
+    string nome, sobrenome;
+    float salario;
+    int aumento;
 
     cout << "Digite:\n> Mes\n> Dia\n> Ano\n\n";
     cin >> mes >> dia >> ano;
@@ -163,6 +220,15 @@ int main (){
     cout << primeiroInvoice.getQuantidade() << endl;
     cout << primeiroInvoice.getPreco() << endl;
     cout << primeiroInvoice.getInvoiceAmount() << endl;
+
+    cout << endl << endl << "EMPREGADO" << endl << endl;
+    cin >> nome >> sobrenome >> salario >> aumento;
+    Empregado primeiroEmpregado(nome, sobrenome, salario);
+    cout << primeiroEmpregado.getNome() << endl;
+    cout << primeiroEmpregado.getSobrenome() << endl;
+    cout << primeiroEmpregado.getSalario() << endl;
+    cout << primeiroEmpregado.getSalarioAnual(aumento) << endl;
+
 
     return 0;
 }
