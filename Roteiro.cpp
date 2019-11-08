@@ -22,6 +22,7 @@ class Data{
         int mes;
         int dia;
         int ano;
+        int arrMes[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     public:
         //construtor
@@ -71,6 +72,7 @@ class Data{
 
         //interfaces
         void avancarDia();
+        void show();
 };
 
 class Invoice{
@@ -83,6 +85,9 @@ class Invoice{
     public:
         //construtor
         Invoice(int numero, string desc, int qtde, float preco){
+            if(qtde < 0) qtde = 0;
+            if (preco < 0) preco = 0;
+
             this->numero = numero;
             this->descricao = desc;
             this->quantidade = qtde;
@@ -103,6 +108,7 @@ class Invoice{
 
         //interface
         float getInvoiceAmount();
+        void show();
 };
 
 class Empregado{
@@ -181,7 +187,25 @@ int Data::getAno(){
 }
 
 void Data::avancarDia(){
-    this->dia++;
+    if((this->dia + 1) > this->arrMes[this->mes]){
+        this->dia = 1;
+
+        if((this->mes + 1) > 12){
+            this->mes = 1;
+            this->ano++;
+        }
+
+        else this->mes++;
+    }
+
+    else this->dia++;
+}
+
+void Data::show(){
+    cout << "Dia: " << this->dia << endl;
+    cout << "Mes: " << this->mes << endl;
+    cout << "Ano: " << this->ano << endl;
+    cout <<"\n";
 }
 
 //funcoes Invoice
@@ -219,6 +243,15 @@ float Invoice::getPreco(){
 
 float Invoice::getInvoiceAmount(){
     return this->preco * this->quantidade;
+}
+
+void Invoice::show(){
+    cout << "Numero: " << this->numero << endl;
+    cout << "Descricacao: " << this->descricao << endl;
+    cout << "Quantidade: " << this->quantidade << endl;
+    cout << "Preco: " << this->preco << endl;
+    cout << "Total: " << this->getInvoiceAmount() << endl;
+    cout <<"\n";
 }
 
 //funcoes Empregado
@@ -276,11 +309,64 @@ string Pessoa::getTelefone(){
 }
 //funcoes main
 void testaData(){
-    Data d(30, -1, 2000);
-    cout << d.getDia() << endl;
-    cout << d.getMes() << endl;
-    cout << d.getAno() << endl;
+    //Incrementa dia
+    Data d1(5, 3, 2000);
+    d1.avancarDia();
+    d1.show();
+
+    //Incrementa mes
+    Data d2(31, 1, 2000);
+    d2.avancarDia();
+    d2.show();
+
+    //Incrementa ano
+    Data d3(31, 12, 2000);
+    d3.avancarDia();
+    d3.show();
+
+    //Mes, dia e ano invalidos
+    Data d4(0, 0, 0);
+    d4.show();
+
+    //Uso dos setters e getters
+    Data d5(10, 10, 1900);
+    d5.setDia(7);
+    d5.setMes(7);
+    d5.setAno(2004);
+
+    cout << "Dia: " << d5.getDia() << endl;
+    cout << "Mes: " << d5.getMes() << endl;
+    cout << "Ano: " << d5.getAno() << endl;
+    cout <<"\n";
+
 }
+
+void testaInvoice(){
+    //std
+    Invoice i1(1, "Computador educacional", 12, 3000);
+    i1.show();
+
+    //Quantidade e preco < 0
+    Invoice i2(2, "Telefone celular bug 404", -5, -3);
+    i2.show();
+
+    //Uso dos setters e getters
+    Invoice i3(0, "00000000000000", 0, 0);
+    i3.setNumero(3);
+    i3.setDescricao("Microondas maneirissimo");
+    i3.setQuantidade(4);
+    i3.setPreco(232.54);
+
+    cout << "Numero: " << i3.getNumero() << endl;
+    cout << "Descricacao: " << i3.getDescricao() << endl;
+    cout << "Quantidade: " << i3.getQuantidade() << endl;
+    cout << "Preco: " << i3.getPreco() << endl;
+    cout << "Total: " << i3.getInvoiceAmount() << endl;
+    cout <<"\n";
+
+
+}
+
 void principal(){
     int opc;
     cout << "Digite a opcao desejada:\n1. Data\n2. Invoice\n3. Empregado\n4. Pessoa\n\n";
@@ -294,7 +380,7 @@ void principal(){
             break;
 
         case 2:
-            //testaInvoice();
+            testaInvoice();
             break;
 
         case 3:
