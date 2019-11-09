@@ -119,6 +119,8 @@ class Empregado{
 
     public:
         Empregado(string nome, string sobrenome, float salario){
+            if(salario < 0) salario = 0;
+
             this->nome = nome;
             this->sobrenome = sobrenome;
             this->salario = salario;
@@ -132,7 +134,8 @@ class Empregado{
         string getSobrenome();
         float getSalario();
 
-        float getSalarioAnual(int aumento);
+        float getSalarioAnual();
+        void show();
 
 };
 
@@ -145,6 +148,8 @@ class Pessoa{
     public:
         Pessoa(string nome){
             this->nome = nome;
+            this->idade = -1;
+            this->telefone = "-1";
         }
 
         Pessoa(string nome, int idade, string telefone){
@@ -160,6 +165,8 @@ class Pessoa{
         string getNome();
         int getIdade();
         string getTelefone();
+
+        void show();
 };
 
 //funcoes Data
@@ -279,8 +286,20 @@ float Empregado::getSalario(){
     return this->salario;
 }
 
-float Empregado::getSalarioAnual(int aumento){
+float Empregado::getSalarioAnual(){
+    float aumento;
+    cout << "Digite o valor do aumento (0.10 // 0.25 // ...): ";
+    cin >> aumento;
+    cout << "\n";
+
     return (this->salario * 13) + (salario * aumento/100 * 13);
+}
+
+void Empregado::show(){
+    cout << "Nome: " << this->nome << endl;
+    cout << "Sobrenome: " << this->sobrenome << endl;
+    cout << "Salario: " << this->salario << endl;
+    cout <<"\n";
 }
 
 //funcoes Pessoa
@@ -307,6 +326,14 @@ int Pessoa::getIdade(){
 string Pessoa::getTelefone(){
     return this->telefone;
 }
+
+void Pessoa::show(){
+    cout << "Nome: " << this->nome << endl;
+    cout << "Idade: " << this->idade << endl;
+    cout << "Telefone: " << this->telefone << endl;
+    cout <<"\n";
+}
+
 //funcoes main
 void testaData(){
     //Incrementa dia
@@ -363,8 +390,58 @@ void testaInvoice(){
     cout << "Preco: " << i3.getPreco() << endl;
     cout << "Total: " << i3.getInvoiceAmount() << endl;
     cout <<"\n";
+}
 
+void testaEmpregado(){
+    float anual;
 
+    //std
+    Empregado e1("Joao", "Pereira", 1300.54);
+    e1.show();
+
+    //sal < 0
+    Empregado e2("Carlos", "Maciel", -5200.32);
+    e2.show();
+
+    //getSalarioAnual()
+    Empregado e3("Luiz", "Henrique", 2050.42);
+    anual = e3.getSalarioAnual();
+    e3.show();
+    cout << "Anual: " << anual << "\n\n";
+
+    //Setters e Getters e getSalarioAnual()
+    Empregado e4("0000000", "000000", 0);
+    e4.setNome("Paulo");
+    e4.setSobrenome("Matheus");
+    e4.setSalario(4200.12);
+    anual = e4.getSalarioAnual();
+
+    cout << "Nome: " << e4.getNome() << endl;
+    cout << "Sobrenome: " << e4.getSobrenome() << endl;
+    cout << "Salario: " << e4.getSalario() << endl;
+    cout <<"\n";
+    cout << "Anual: " << anual << "\n";
+}
+
+void testaPessoa(){
+    //p1(name)
+    Pessoa p1("Lucas Fernandes da Silva");
+    p1.show();
+
+    //std
+    Pessoa p2("Thathiane Fernandes Macedo de Carvalho", 22, "(83) 9 8724-3061");
+    p2.show();
+
+    //Setters e Getters
+    Pessoa p3("000000000");
+    p3.setNome("Carlinhos Vieira");
+    p3.setIdade(14);
+    p3.setTelefone("(82) 9 9455-6274");
+
+    cout << "Nome: " << p3.getNome() << endl;
+    cout << "Idade: " << p3.getIdade() << endl;
+    cout << "Telefone: " << p3.getTelefone() << endl;
+    cout <<"\n";
 }
 
 void principal(){
@@ -384,11 +461,11 @@ void principal(){
             break;
 
         case 3:
-            //testaEmpregado();
+            testaEmpregado();
             break;
 
         case 4:
-            //testaPessoa();
+            testaPessoa();
             break;
     }
 }
