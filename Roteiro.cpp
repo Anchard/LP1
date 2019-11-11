@@ -169,6 +169,38 @@ class Pessoa{
         void show();
 };
 
+class Despesa{
+    private:
+        double valor;
+        int tipoDeGastos;
+
+    public:
+        Despesa(double valor, int tipoDeGastos){
+            this->valor = valor;
+            this->tipoDeGastos = tipoDeGastos;
+        }
+
+        void setValor(double valor);
+        void setTipoDeGastos(double tipoDeGastos);
+
+        double getValor();
+        int getTipoDeGastos();
+
+        void show();
+
+};
+
+class ControleDeGastos{
+    public:
+        Despesa despesas[10];
+        int dr; //despesas registradas
+        void setDespesa(Despesa d, int pos);
+        double calculaTotalDespesas();
+        int existeDespesa(int tipo);
+        void iniciaDr();
+        void showAll();
+};
+
 //funcoes Data
 void Data::setMes(int mes){
     this->mes = mes;
@@ -334,6 +366,61 @@ void Pessoa::show(){
     cout <<"\n";
 }
 
+//funcoes Despesa
+void Despesa::setValor(double valor){
+    this->valor = valor;
+}
+
+void Despesa::setTipoDeGastos(double tipoDeGastos){
+    this->tipoDeGastos = tipoDeGastos;
+}
+
+double Despesa::getValor(){
+    return this->valor;
+}
+
+int Despesa::getTipoDeGastos(){
+    return this->tipoDeGastos;
+}
+
+void Despesa::show(){
+    cout << "Valor: " << this->valor << endl;
+    cout << "TipoDeGastos: " << this->tipoDeGastos << endl;
+    cout <<"\n";
+}
+
+//funcoes ControleDeGastos
+void ControleDeGastos::setDespesa(Despesa d, int pos){
+     this->despesas[pos] = d;
+     this->dr++;
+}
+
+double ControleDeGastos::calculaTotalDespesas(){
+    double sum = 0;
+
+    for(int i = 0; i < this->dr; i++) sum += this->despesas[i].getValor();
+
+    return sum;
+}
+
+int ControleDeGastos::existeDespesa(int tipo){
+     for(int i = 0; i < this->dr; i++)
+        if(this->despesas[i].getTipoDeGastos() == tipo) return 1;
+
+     else return 0;
+}
+
+void ControleDeGastos::showAll(){
+    for(int i = 0; i < this->dr; i++){
+        cout << this->despesas[i].getTipoDeGastos() << endl;
+        cout << this->despesas[i].getValor() << endl;
+    }
+}
+
+void ControleDeGastos::iniciaDr(){
+    this->dr = 0;
+}
+
 //funcoes main
 void testaData(){
     //Incrementa dia
@@ -444,9 +531,19 @@ void testaPessoa(){
     cout <<"\n";
 }
 
+void testaControleDeGastos(){
+
+    Despesa d1(3500.12, 1);
+    Despesa d2(1000, 2);
+
+    d1.show();
+    d2.show();
+
+}
+
 void principal(){
     int opc;
-    cout << "Digite a opcao desejada:\n1. Data\n2. Invoice\n3. Empregado\n4. Pessoa\n\n";
+    cout << "Digite a opcao desejada:\n1. Data\n2. Invoice\n3. Empregado\n4. Pessoa\n5. Controle de Gastos\n\n";
     cout << "Opcao: ";
     cin >> opc;
     cout << "\n";
@@ -466,6 +563,10 @@ void principal(){
 
         case 4:
             testaPessoa();
+            break;
+
+        case 5:
+            testaControleDeGastos();
             break;
     }
 }
