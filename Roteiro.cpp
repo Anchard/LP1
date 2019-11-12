@@ -180,24 +180,26 @@ class Despesa{
             this->tipoDeGastos = tipoDeGastos;
         }
 
+        Despesa(){
+            this->valor = 0;
+            this->tipoDeGastos = -1;
+        }
+
         void setValor(double valor);
         void setTipoDeGastos(double tipoDeGastos);
 
         double getValor();
         int getTipoDeGastos();
-
-        void show();
-
 };
 
 class ControleDeGastos{
-    public:
+    private:
         Despesa despesas[10];
-        int dr; //despesas registradas
+
+    public:
         void setDespesa(Despesa d, int pos);
         double calculaTotalDespesas();
-        int existeDespesa(int tipo);
-        void iniciaDr();
+        bool existeDispesaDoTipo(int tipo);
         void showAll();
 };
 
@@ -383,42 +385,40 @@ int Despesa::getTipoDeGastos(){
     return this->tipoDeGastos;
 }
 
-void Despesa::show(){
-    cout << "Valor: " << this->valor << endl;
-    cout << "TipoDeGastos: " << this->tipoDeGastos << endl;
-    cout <<"\n";
-}
-
 //funcoes ControleDeGastos
 void ControleDeGastos::setDespesa(Despesa d, int pos){
-     this->despesas[pos] = d;
-     this->dr++;
+    this->despesas[pos].setValor(d.getValor());
+    this->despesas[pos].setTipoDeGastos(d.getTipoDeGastos());
+}
+
+void ControleDeGastos::showAll(){
+    for(int i = 0; i < 10; i++){
+        cout << "Tipo de Gasto: " << this->despesas[i].getTipoDeGastos() << endl;
+        cout << "Valor: " << this->despesas[i].getValor() << endl;
+    }
+
+    cout << endl;
 }
 
 double ControleDeGastos::calculaTotalDespesas(){
     double sum = 0;
 
-    for(int i = 0; i < this->dr; i++) sum += this->despesas[i].getValor();
+    for(int i = 0; i < 10; i++) sum += this->despesas[i].getValor();
 
-    return sum;
+    cout << "Total: " << sum << endl;
+    cout << endl;
 }
 
-int ControleDeGastos::existeDespesa(int tipo){
-     for(int i = 0; i < this->dr; i++)
-        if(this->despesas[i].getTipoDeGastos() == tipo) return 1;
-
-     else return 0;
-}
-
-void ControleDeGastos::showAll(){
-    for(int i = 0; i < this->dr; i++){
-        cout << this->despesas[i].getTipoDeGastos() << endl;
-        cout << this->despesas[i].getValor() << endl;
+bool ControleDeGastos::existeDispesaDoTipo(int tipo){
+    for(int i = 0; i < 10; i++){
+        if(this->despesas[i].getTipoDeGastos() == tipo){
+            cout << "Existe Dispesa desse Tipo!" << endl;
+            return true;
+        }
     }
-}
 
-void ControleDeGastos::iniciaDr(){
-    this->dr = 0;
+    cout << "Nao Existe Dispesa desse Tipo!" << endl;
+    return false;
 }
 
 //funcoes main
@@ -532,13 +532,27 @@ void testaPessoa(){
 }
 
 void testaControleDeGastos(){
-
+    ControleDeGastos c1;
     Despesa d1(3500.12, 1);
     Despesa d2(1000, 2);
+    Despesa d3(1700.98, 2);
 
-    d1.show();
-    d2.show();
 
+    c1.setDespesa(d1, 0);
+    c1.setDespesa(d2, 2);
+    c1.setDespesa(d3, 4);
+
+    //Mostrando todas as despesas
+    c1.showAll();
+
+    //Total acumulado
+    c1.calculaTotalDespesas();
+
+    //Despesas por Tipos
+    c1.existeDispesaDoTipo(0);
+    c1.existeDispesaDoTipo(1);
+    c1.existeDispesaDoTipo(2);
+    c1.existeDispesaDoTipo(3);
 }
 
 void principal(){
