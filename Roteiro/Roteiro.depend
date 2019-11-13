@@ -1,0 +1,65 @@
+# depslib dependency file v1.0
+1573669320 source:c:\users\thath\desktop\lucas\codes\roteiro\main.cpp
+	<iostream>
+	"Data.h"
+	"Invoice.h"
+	"Empregado.h"
+	"Pessoa.h"
+	"Despesa.h"
+	"Pagamento.h"
+	"ControleDePagamentos.h"
+	"ControleDeGastos.h"
+	<string>
+
+1573666783 source:c:\users\thath\desktop\lucas\codes\roteiro\src\data.cpp
+	"Data.h"
+
+1573669005 c:\users\thath\desktop\lucas\codes\roteiro\include\data.h
+	<iostream>
+
+1573667306 source:c:\users\thath\desktop\lucas\codes\roteiro\src\invoice.cpp
+	"Invoice.h"
+	<iostream>
+
+1573667279 c:\users\thath\desktop\lucas\codes\roteiro\include\invoice.h
+	<string>
+
+1573667508 source:c:\users\thath\desktop\lucas\codes\roteiro\src\empregado.cpp
+	"Empregado.h"
+	<iostream>
+
+1573667481 c:\users\thath\desktop\lucas\codes\roteiro\include\empregado.h
+	<string>
+
+1573667649 source:c:\users\thath\desktop\lucas\codes\roteiro\src\pessoa.cpp
+	"Pessoa.h"
+	<iostream>
+
+1573667680 c:\users\thath\desktop\lucas\codes\roteiro\include\pessoa.h
+	<string>
+
+1573667830 source:c:\users\thath\desktop\lucas\codes\roteiro\src\despesa.cpp
+	"Despesa.h"
+
+1573667953 c:\users\thath\desktop\lucas\codes\roteiro\include\despesa.h
+
+1573669519 source:c:\users\thath\desktop\lucas\codes\roteiro\src\controledegastos.cpp
+	"ControleDeGastos.h"
+	<iostream>
+
+1573668103 c:\users\thath\desktop\lucas\codes\roteiro\include\controledegastos.h
+	"Despesa.h"
+
+1573668235 source:c:\users\thath\desktop\lucas\codes\roteiro\src\pagamento.cpp
+	"Pagamento.h"
+
+1573668256 c:\users\thath\desktop\lucas\codes\roteiro\include\pagamento.h
+	<string>
+
+1573668387 source:c:\users\thath\desktop\lucas\codes\roteiro\src\controledepagamentos.cpp
+	"ControleDePagamentos.h"
+	<iostream>
+
+1573668376 c:\users\thath\desktop\lucas\codes\roteiro\include\controledepagamentos.h
+	<Pagamento.h>
+
