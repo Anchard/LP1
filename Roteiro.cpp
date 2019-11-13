@@ -203,6 +203,40 @@ class ControleDeGastos{
         void showAll();
 };
 
+class Pagamento{
+    private:
+        double valorPagamento;
+        string nomeDoFuncionario;
+
+    public:
+        Pagamento(double valorPagamento, string nomeDoFuncionario){
+            this->valorPagamento = valorPagamento;
+            this->nomeDoFuncionario = nomeDoFuncionario;
+        }
+
+        Pagamento(){
+            this->valorPagamento = 0;
+            this->nomeDoFuncionario = "-1";
+        }
+
+        void setValorPagamento(double pagamento);
+        void setNomeDoFuncionario(string nome);
+
+        double getValorPagamento();
+        string getNomeDoFuncionario();
+};
+
+class ControleDePagamentos{
+    private:
+        Pagamento pagamentos[10];
+
+    public:
+        void setPagamentos(Pagamento p, int pos);
+        double calculaTotalDePagamentos();
+        bool existePagamentoParaFuncionario(string nome);
+        void showAll();
+};
+
 //funcoes Data
 void Data::setMes(int mes){
     this->mes = mes;
@@ -417,8 +451,62 @@ bool ControleDeGastos::existeDispesaDoTipo(int tipo){
         }
     }
 
-    cout << "Nao Existe Dispesa desse Tipo!" << endl;
+    cout << "Nao Existe Dispesa desse Tipo!" << endl << endl;
     return false;
+}
+
+//funcoes Pagamento
+void Pagamento::setValorPagamento(double pagamento){
+    this->valorPagamento = pagamento;
+}
+
+void Pagamento::setNomeDoFuncionario(string nome){
+    this->nomeDoFuncionario = nome;
+}
+
+double Pagamento::getValorPagamento(){
+    return this->valorPagamento;
+}
+
+string Pagamento::getNomeDoFuncionario(){
+    return this->nomeDoFuncionario;
+}
+
+//funcoes ControleDePagamentos
+void ControleDePagamentos::setPagamentos(Pagamento p, int pos){
+    for(int i = 0; i < 10; i++){
+        this->pagamentos[pos].setNomeDoFuncionario(p.getNomeDoFuncionario());
+        this->pagamentos[pos].setValorPagamento(p.getValorPagamento());
+    }
+}
+
+bool ControleDePagamentos::existePagamentoParaFuncionario(string nome){
+    for(int i = 0; i < 10; i++){
+        if(this->pagamentos[i].getNomeDoFuncionario() == nome){
+            cout << "Existe Pagamento para este Funcionario!\n";
+            return true;
+        }
+    }
+    cout << "Nao existe Pagamento para este Funcionario!\n" << endl;
+    return false;
+}
+
+double ControleDePagamentos::calculaTotalDePagamentos(){
+    double sum = 0;
+    for(int i = 0; i < 10; i++){
+        sum += this->pagamentos[i].getValorPagamento();
+    }
+
+    cout << "Total: " << sum << endl << endl;
+    return sum;
+}
+
+void ControleDePagamentos::showAll(){
+    for(int i = 0; i < 10; i++){
+        cout << "Nome: " << this->pagamentos[i].getNomeDoFuncionario() << endl;
+        cout << "Pagamento: " << this->pagamentos[i].getValorPagamento() << endl;
+    }
+    cout << endl;
 }
 
 //funcoes main
@@ -555,9 +643,32 @@ void testaControleDeGastos(){
     c1.existeDispesaDoTipo(3);
 }
 
+void testaControleDePagamentos(){
+    Pagamento p1(3250.74, "Roberto Carlos");
+    Pagamento p2(5380.20, "Carlos Roberto");
+    Pagamento p3(2000, "Julio Cesar");
+    ControleDePagamentos c1;
+
+    //Utilizando Função Set
+    c1.setPagamentos(p1, 0);
+    c1.setPagamentos(p2, 3);
+    c1.setPagamentos(p3, 9);
+
+    //Mostrando Dandos Inseridos
+    c1.showAll();
+
+    //Mostrando valor Total
+    c1.calculaTotalDePagamentos();
+
+    //Procurando Pagamentos por funcionario
+    c1.existePagamentoParaFuncionario("Carlos Roberto");
+    c1.existePagamentoParaFuncionario("Julio Cesar");
+    c1.existePagamentoParaFuncionario("Cesar Julio");
+}
+
 void principal(){
     int opc;
-    cout << "Digite a opcao desejada:\n1. Data\n2. Invoice\n3. Empregado\n4. Pessoa\n5. Controle de Gastos\n\n";
+    cout << "Digite a opcao desejada:\n\n1. Data\n2. Invoice\n3. Empregado\n4. Pessoa\n5. Controle de Gastos\n6. Controle de Pagamentos\n7. Sair\n\n";
     cout << "Opcao: ";
     cin >> opc;
     cout << "\n";
@@ -582,13 +693,25 @@ void principal(){
         case 5:
             testaControleDeGastos();
             break;
+
+        case 6:
+            testaControleDePagamentos();
+            break;
+
+        case 7:
+            cout << "Obrigado por utilizar o programa!\n";
+            return;
+
+        default:
+            cout << "Escolha uma opcao valida!\n" << endl;
+            break;
     }
 }
 
 //main
 int main (){
 
-    principal();
+    while(true) principal();
 
     return 0;
 }
